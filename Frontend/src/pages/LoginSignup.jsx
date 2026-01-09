@@ -28,6 +28,7 @@ const LoginSignup = () => {
     await sendTokenToBackend();
   };
 
+
   // Email Login
   const handleLogin = async () => {
     await signInWithEmailAndPassword(auth, email, password);
