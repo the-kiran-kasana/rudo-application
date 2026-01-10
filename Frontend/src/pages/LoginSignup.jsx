@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { auth } from "../config/firebase.js";
-import axios from "axios";
+import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import {
   GoogleAuthProvider,
