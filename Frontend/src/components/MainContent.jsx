@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ExpenseList from "../components/ExpenseList";
+import ExpenseForm from "../components/ExpenseForm";
 import GroupSection from "../components/GroupSection";
 import GroupDetails from "../components/GroupDetails";
 import FriendDetails from "../components/FriendDetails";
@@ -40,7 +40,7 @@ if (selectedFriend) {
       </div>
 
       <GroupSection showForm={showForm} setShowForm={setShowForm} />
-      <ExpenseList showExpense={showExpense} setShowExpense={setShowExpense}/>
+{/*       <ExpenseForm showExpense={showExpense} setShowExpense={setShowExpense}/> */}
 
 
     </main>

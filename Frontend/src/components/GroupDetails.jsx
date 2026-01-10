@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ExpenseList from "../components/ExpenseList";
+import ExpenseForm from "../components/ExpenseForm";
 import { Users, Plus, HandCoins } from "lucide-react";
 
 export default function GroupDetails({ group }) {
+//
 
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showExpense, setShowExpense] = useState(false);
-    const API = import.meta.env.VITE_API_URL;
+  const [showExpenseForm, setShowExpenseForm] = useState(false);
 
+  const API = import.meta.env.VITE_API_URL;
 
   const fetchGroupExpenses = async () => {
     try {
@@ -47,16 +48,24 @@ export default function GroupDetails({ group }) {
         </div>
 
 
+
+
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg">
-            <Plus size={16} /> Add expense
-          </button>
+
+          <button onClick={() => setShowExpenseForm(true)} className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg"> <Plus size={16} /> Add expense</button>
 
           <button className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg">
             <HandCoins size={16} /> Settle up
           </button>
+
+
         </div>
       </div>
+
+     {showExpenseForm && group && ( <ExpenseForm showExpenseForm={showExpenseForm} setShowExpenseForm={setShowExpenseForm} group={group}/>)}
+
+
+
 
 
       <div className="mt-6">

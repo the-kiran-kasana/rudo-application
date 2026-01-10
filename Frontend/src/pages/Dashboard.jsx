@@ -3,7 +3,7 @@ import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import MainContent from "../components/MainContent";
 import BalancePanel from "../components/BalancePanel";
-import ExpenseList from "../components/ExpenseList";
+import ExpenseForm from "../components/ExpenseForm";
 
 
 

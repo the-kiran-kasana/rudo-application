@@ -46,7 +46,7 @@ const LoginSignup = () => {
       });
       localStorage.setItem("token", token);
       navigate("/dashboard");
-      console.log("Backend response:", res.data);
+      console.log("Backend response:", token);
     } catch (error) {
       console.error("API Error:", error.response?.data || error.message);
     }

@@ -19,9 +19,11 @@ ExpenseRouter.post("/addExpense", firebaseAuth, async (req, res) => {
       if (!group)  return res.status(404).json({ message: "Group not found" });
 
       const memberUIDs = group.members.map(m => m.uid);
-      const invalid = participants.some(p => !memberUIDs.includes(p));
 
-      if (invalid) return res.status(400).json({ message: "All participants must be group members" });
+//      const invalid = participants.some(p => !memberUIDs.includes(p));
+//
+//      console.log("invalid email is this ", invalid);
+////      if (invalid) return res.status(401).json({ message: "All participants must be group members" });
 
     }
 
@@ -37,12 +39,22 @@ ExpenseRouter.post("/addExpense", firebaseAuth, async (req, res) => {
       splits: finalSplits,
       createdBy: uid,
     });
-
     res.status(201).json({ message: "Expense created",expense,});
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    res.status(402).json({ message: "failed" });
   }
 });
+
+
+
+
+
+
+
+
+
+
+
 
 
 
