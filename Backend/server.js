@@ -5,12 +5,10 @@ const userAuthRoutes = require("./routes/protectedRoutes")
 const groupRoutes = require("./routes/groupRoutes")
 
 require("dotenv").config();
-
-
-
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({extended : true}));
+
+
+
 
 //app.use(cors({
 //    origin : "http://localhost:5173", "https://rudo-application-v4tf.vercel.app/"
@@ -19,36 +17,43 @@ app.use(express.urlencoded({extended : true}));
 //}))
 
 
+//
+//app.use(
+//  cors({
+//    origin: process.env.NODE_ENV === "production"
+//      ? "*" // allow frontend domain later
+//      : "http://localhost:5173",
+//    credentials: true,
+//  })
+//);
+
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://rudo-application-azej.vercel.app"
+];
 
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production"
-      ? "*" // allow frontend domain later
-      : "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
 
-//const allowedOrigins = [
-//  "http://localhost:5173",
-//  "https://rudo-application-azej.vercel.app"
-//];
-//
-//app.use(cors({
-//  origin: function (origin, callback) {
-//    // allow requests with no origin (Postman, server-to-server)
-//    if (!origin) return callback(null, true);
-//
-//    if (allowedOrigins.includes(origin)) {
-//      callback(null, true);
-//    } else {
-//      callback(new Error("Not allowed by CORS"));
-//    }
-//  },
-//  methods: ["GET", "POST", "PUT", "DELETE"],
-//  credentials: true
-//}));
+
+
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));
 
 
 
