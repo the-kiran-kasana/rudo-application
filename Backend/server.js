@@ -21,7 +21,7 @@ app.use(express.urlencoded({extended : true}));
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://rudo-application-v4tf.vercel.app"
+  "https://rudo-application-azej.vercel.app"
 ];
 
 app.use(cors({
