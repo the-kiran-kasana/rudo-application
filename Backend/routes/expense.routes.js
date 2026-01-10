@@ -9,23 +9,30 @@ const ExpenseRouter = express.Router();
 
 ExpenseRouter.post("/addExpense", firebaseAuth, async (req, res) => {
   try {
-    const { description,amount, groupId = null, paidBy, participants, splitType, splits = [],} = req.body;
-    const { uid } = req.user;
+        const { description,amount, groupId, paidBy, participants, splitType, splits = [],} = req.body;
+        const { uid } = req.user;
 
-    if (groupId) {
+        console.log(description,amount, groupId, paidBy, participants, splitType)
 
-      const group = await Group.findById(groupId);
 
-      if (!group)  return res.status(404).json({ message: "Group not found" });
+        if (groupId) {
 
-      const memberUIDs = group.members.map(m => m.uid);
+          const group = await Group.findById(groupId);
 
-//      const invalid = participants.some(p => !memberUIDs.includes(p));
-//
-//      console.log("invalid email is this ", invalid);
-////      if (invalid) return res.status(401).json({ message: "All participants must be group members" });
+         if (!group)  return res.status(404).json({ message: "Group not found" });
 
-    }
+          const memberEmails = group.members.map(m => m.email);
+
+          const invalid = participants.some(p => !memberEmails.includes(p));
+
+
+          console.log("invalid email is this ", invalid);
+
+         if (invalid)  {
+           return res.status(401).json({ message: "All participants must be group members" });
+         }
+
+        }
 
     const finalSplits = validateSplits({ amount, splitType,participants, splits, });
 
@@ -39,8 +46,9 @@ ExpenseRouter.post("/addExpense", firebaseAuth, async (req, res) => {
       splits: finalSplits,
       createdBy: uid,
     });
-    res.status(201).json({ message: "Expense created",expense,});
+    res.status(201).json({ message: "Expense created",expense});
   } catch (err) {
+//    console.log(err.message)
     res.status(402).json({ message: "failed" });
   }
 });
@@ -62,13 +70,13 @@ ExpenseRouter.get("/getGroup", firebaseAuth, async (req, res) => {
   try {
     const { groupId } = req.query;
     const uid = req.user.uid;
-
+     console.log("but is not pronting the log data 8000");
     const query = { participants: uid, };
 
     if (groupId) query.groupId = groupId;
     const expenses = await Expense.find(query).sort({ createdAt: -1 });
 
-    res.json({ expenses });
+    res.status(202).json({ mess:"print the expenses",expenses });
   } catch (err) {
     res.status(500).json({ message: "Fetch expenses failed" });
   }
@@ -127,4 +135,4 @@ ExpenseRouter.delete("/:expenseId", firebaseAuth, async (req, res) => {
 });
 
 
-module.exports = ExpenseRouter
+module.exports = ExpenseRouter;

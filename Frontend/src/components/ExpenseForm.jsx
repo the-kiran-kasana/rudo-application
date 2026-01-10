@@ -9,11 +9,6 @@ export default function ExpenseForm({ showExpenseForm, setShowExpenseForm, group
 
 
     const decoded = jwtDecode(token);
-    console.log("user email is", decoded.email);
-
-
-
-  console.log("aga,b bagdam",group)
 
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
@@ -61,6 +56,8 @@ export default function ExpenseForm({ showExpenseForm, setShowExpenseForm, group
  };
 
 
+
+
   const saveExpense = async () => {
     if (!description || !amount || !paidBy || participants.length === 0) {
       alert("Please fill all required fields");
@@ -80,17 +77,17 @@ export default function ExpenseForm({ showExpenseForm, setShowExpenseForm, group
       createdBy: paidBy,
     };
 
-    console.log("SENDING PAYLOAD", payload);
 
     try {
-      await axios.post(`https://rudo-application.onrender.com/api/expenses/addExpense`, payload,
+      await axios.post("http://localhost:8000/expenses/addExpense",
+         payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setShowExpenseForm(false);
     } catch (err) {
       console.error("API ERROR:", err.response?.data || err.message);
-      alert("Failed to add expense");
+      alert(err.message);
     }
   };
 
@@ -107,7 +104,7 @@ export default function ExpenseForm({ showExpenseForm, setShowExpenseForm, group
         <input  placeholder="Enter a description"  value={description}  onChange={(e) => setDescription(e.target.value)}  className="w-full border px-3 py-2 rounded"/>
         <input type="number" placeholder="$0.00" value={amount} onChange={(e) => setAmount(e.target.value)}className="w-full border px-3 py-2 rounded"/>
 
-        <spam>Paid by : </spam>
+        <label>Paid by : </label>
         <select value={paidBy} onChange={(e) => setPaidBy(e.target.value)} className="w-full border px-3 py-2 rounded">
           {group.members.map((m) => (
             <option key={m.email} value={m.email}>  {m.email}</option>

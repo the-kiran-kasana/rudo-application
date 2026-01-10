@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 const cors = require("cors");
 const userAuthRoutes = require("./routes/protectedRoutes")
 const groupRoutes = require("./routes/groupRoutes")
+const ExpenseRouter = require("./routes/expense.routes")
 
 require("dotenv").config();
 const app = express();
@@ -63,7 +64,7 @@ app.use(express.urlencoded({extended : true}));
 
 app.use("/api" , userAuthRoutes)
 app.use("/group" , groupRoutes);
-app.use("/api/expenses", require("./routes/expense.routes"));
+app.use("/expenses", ExpenseRouter);
 
 
 
