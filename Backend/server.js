@@ -19,25 +19,36 @@ app.use(express.urlencoded({extended : true}));
 //}))
 
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://rudo-application-azej.vercel.app"
-];
 
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (Postman, server-to-server)
-    if (!origin) return callback(null, true);
+app.use(
+  cors({
+    origin: process.env.NODE_ENV === "production"
+      ? "*" // allow frontend domain later
+      : "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+
+//const allowedOrigins = [
+//  "http://localhost:5173",
+//  "https://rudo-application-azej.vercel.app"
+//];
+//
+//app.use(cors({
+//  origin: function (origin, callback) {
+//    // allow requests with no origin (Postman, server-to-server)
+//    if (!origin) return callback(null, true);
+//
+//    if (allowedOrigins.includes(origin)) {
+//      callback(null, true);
+//    } else {
+//      callback(new Error("Not allowed by CORS"));
+//    }
+//  },
+//  methods: ["GET", "POST", "PUT", "DELETE"],
+//  credentials: true
+//}));
 
 
 
