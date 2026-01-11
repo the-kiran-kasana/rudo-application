@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {UserRound, Users,Handshake} from "lucide-react"
+import { useNavigate, Link } from "react-router-dom";
+import MainContent from "../components/MainContent";
 
-export default function Sidebar({ onGroupSelect, onFriendSelect }) {
+export default function Sidebar({ onGroupSelect, onFriendSelect}) {
     const [groups, setGroups] = useState([]);
     const [friends, setFriends] = useState([]);
+    const [showDashboard, setShowDashboard] = useState(false);
       const API = import.meta.env.VITE_API_URL;
 
     useEffect(() => {
@@ -39,14 +42,15 @@ export default function Sidebar({ onGroupSelect, onFriendSelect }) {
       <h1 className="text-xl font-bold text-green-600">Splitwise</h1>
 
       <nav className="space-y-2 text-sm">
-        <p className="font-semibold text-gray-500 cursor-pointer hover:text-green-600">Dashboard</p>
-        <p className="text-gray-600">Recent activity</p>
+         <button className="font-semibold text-gray-500 cursor-pointer hover:text-green-600"><Link to="/dashboard">Dashboard</Link></button>
+         <p className="text-gray-600">Recent activity</p>
         <p className="text-gray-600">All expenses</p>
       </nav>
 
-      <hr />
 
-            {/* GROUPS */}
+
+            <hr />
+
             <div>
             <h3 className="text-xs flex gap-1 font-semibold text-gray-400"><Users size={15}/>GROUPS</h3>
             <ul>
@@ -60,7 +64,6 @@ export default function Sidebar({ onGroupSelect, onFriendSelect }) {
 
            <hr />
 
-           {/* FRIENDS */}
            <div>
              <h3 className="text-xs font-semibold flex gap-1 text-gray-400 mt-10"><Handshake size={15}/>FRIENDS</h3>
             <ul>
@@ -76,10 +79,10 @@ export default function Sidebar({ onGroupSelect, onFriendSelect }) {
 
 
 
-      <div className="pt-4">
-        <input placeholder="Enter email" className="w-full px-2 py-1 border rounded text-sm"/>
-        <button className="mt-2 w-full bg-green-500 text-white py-1 rounded text-sm"> Invite friend  </button>
-      </div>
+          <div className="pt-4">
+            <input placeholder="Enter email" className="w-full px-2 py-1 border rounded text-sm"/>
+            <button className="mt-2 w-full bg-green-500 text-white py-1 rounded text-sm"> Invite friend  </button>
+          </div>
 
 
     </aside>

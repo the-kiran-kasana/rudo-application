@@ -3,22 +3,12 @@ import ExpenseForm from "../components/ExpenseForm";
 import GroupSection from "../components/GroupSection";
 import GroupDetails from "../components/GroupDetails";
 import FriendDetails from "../components/FriendDetails";
-import UserDashboard from "../components/UserDashboard";
 import { Users, Plus, HandCoins } from "lucide-react"
 
-export default function MainContent({ selectedGroup, selectedFriend }) {
+export default function UserDashboard() {
   const [showForm, setShowForm] = useState(false);
   const [showExpense, setShowExpense] = useState(false);
 
-
-
-if (selectedGroup) {
-  return <GroupDetails group={selectedGroup} />;
-}
-
-if (selectedFriend) {
-  return <FriendDetails friend={selectedFriend} />;
-}
 
 
   return (
@@ -34,14 +24,13 @@ if (selectedFriend) {
         </div>
 
         <div className="flex gap-3">
-           <button onClick={() => setShowExpense(!showExpense)} className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg"> <Plus size={16} /> Add expense </button>
+           <button className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg"> <Plus size={16} /> Add expense </button>
            <button className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-lg"> <HandCoins size={16} /> Settle up</button>
            <button onClick={() => setShowForm(!showForm)} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"> + Create Group </button>
         </div>
       </div>
 
       <GroupSection showForm={showForm} setShowForm={setShowForm} />
-{/*       <ExpenseForm showExpense={showExpense} setShowExpense={setShowExpense}/> */}
 
 
     </main>

@@ -70,13 +70,13 @@ ExpenseRouter.get("/getGroup", firebaseAuth, async (req, res) => {
   try {
     const { groupId } = req.query;
     const uid = req.user.uid;
-     console.log("but is not pronting the log data 8000");
-    const query = { participants: uid, };
 
+    const query = { participants: uid };
     if (groupId) query.groupId = groupId;
+
     const expenses = await Expense.find(query).sort({ createdAt: -1 });
 
-    res.status(202).json({ mess:"print the expenses",expenses });
+    res.status(202).json({ mess: "print the expenses", expenses });
   } catch (err) {
     res.status(500).json({ message: "Fetch expenses failed" });
   }

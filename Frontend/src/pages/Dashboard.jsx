@@ -11,6 +11,9 @@ export default function Dashboard() {
 
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [selectedFriend, setSelectedFriend] = useState(null);
+  const [activeView, setActiveView] = useState("dashboard");
+
+
 
 
 
